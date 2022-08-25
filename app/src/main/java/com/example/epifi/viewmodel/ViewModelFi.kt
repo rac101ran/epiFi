@@ -17,8 +17,9 @@ class ViewModelFi : ViewModel() {
 
     var state by mutableStateOf(AccountInfo())
 
-    private val validatePanInfo: ValidatePanInfo = ValidatePanInfo()
+    private val validatePanInfo: ValidatePanInfo = ValidatePanInfo()  // use case class
 
+    // channel can be used for single observer
     private var channel = Channel<ValidationEvent>()
 
     val validatedFlow = channel.receiveAsFlow()
@@ -48,20 +49,21 @@ class ViewModelFi : ViewModel() {
     }
 
     private fun submitInfo() {
-        val validationPan = validatePanInfo.executePAN(state.PAN)
+        val validationPan = validatePanInfo.executePAN(state.PAN)  // validation case for pan
 
         val validationDob =
-            validatePanInfo.executeDob(state.dobD + "-" + state.dobM + "-" + state.dobY)
+            validatePanInfo.executeDob(state.dobD + "-" + state.dobM + "-" + state.dobY) // validation case for date of birth
 
         state = state.copy(errorDob = state.errorDob, errorPan = state.errorPan)
 
-        if (!validationPan.isSuccessful || !validationDob.isSuccessful) {
+        if (!validationPan.isSuccessful || !validationDob.isSuccessful) { // if any of the fields are invalid
+            // launch the coroutine
             viewModelScope.launch {
-                channel.send(ValidationEvent.Failure)
+                channel.send(ValidationEvent.Failure)  // send the failure event
             }
         } else {
             viewModelScope.launch {
-                channel.send(ValidationEvent.Success)
+                channel.send(ValidationEvent.Success)  // in case of successful data , send the success event
             }
         }
     }

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">epiFi</string>
-    <string name="title_PAN">First of the Few steps to set <br/> you up your bank account</string>
+    <string name="title_PAN">First of the Few steps to set <br/> you up with a bank account</string>
     <string name = "info_KYC">Providing PAN and Date of birth helps us to find and <br/> fetch your kyc form a central registry by <br/>
         the government of india</string>
 </resources>

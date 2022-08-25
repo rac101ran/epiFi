@@ -10,6 +10,10 @@ import androidx.lifecycle.*
 import com.example.epifi.model.AccountEvent
 import com.example.epifi.databinding.ActivityMainBinding
 import com.example.epifi.viewmodel.ViewModelFi
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,34 +23,39 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModelFi by viewModels<ViewModelFi>()
 
-
+    @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
         initView()
-
         observers()
-
-
     }
 
+    @DelicateCoroutinesApi
     private fun observers() {
         lifecycleScope.launchWhenStarted {
-            viewModelFi.validatedFlow.collect { event ->
+            viewModelFi.validatedFlow.collect { event ->    // listen/collect the send event from the view-model
                 when (event) {
                     is ViewModelFi.ValidationEvent.Success -> {
+                        // when it is a successful validation , show toast and end the activity
                         Toast.makeText(
                             this@MainActivity,
                             "Details Submitted Successfully",
                             Toast.LENGTH_SHORT
                         ).show()
-                        finish()
+
+                        // short delay for better user experience
+                        GlobalScope.launch {
+                            delay(400)
+                            finish()
+                        }
+
                     }
                     is ViewModelFi.ValidationEvent.Failure -> {
+                        // when it is the failure validation , disable the NEXT button
                         binding.btNext.isEnabled = false
                         Log.e("message", "Invalid data")
                     }
@@ -64,13 +73,13 @@ class MainActivity : AppCompatActivity() {
         binding.etPan.doAfterTextChanged {
             state.PAN = it.toString()
             binding.btNext.isEnabled = true
-            viewModelFi.eventHandler(AccountEvent.PanChanged(it.toString()))
+            viewModelFi.eventHandler(AccountEvent.PanChanged(it.toString()))  // handle the event of changes in pan number
         }
 
         binding.etDate.doAfterTextChanged {
             state.dobD = it.toString()
             binding.btNext.isEnabled = true
-            viewModelFi.eventHandler(AccountEvent.DobD(it.toString()))
+            viewModelFi.eventHandler(AccountEvent.DobD(it.toString()))   // handle the event of changes in dob
         }
         binding.etMonth.doAfterTextChanged {
             state.dobM = it.toString()
@@ -82,10 +91,8 @@ class MainActivity : AppCompatActivity() {
             binding.btNext.isEnabled = true
             viewModelFi.eventHandler(AccountEvent.DobY(it.toString()))
         }
-
-        binding.btNext.setOnClickListener { viewModelFi.eventHandler(AccountEvent.Submit) }
-
-        binding.tvNoPan.setOnClickListener { finish() }
+        binding.btNext.setOnClickListener { viewModelFi.eventHandler(AccountEvent.Submit) }  // submit the filled request of user
+        binding.tvNoPan.setOnClickListener { finish() }  // if user doesn't have the pan number then end the activity
     }
 
 
