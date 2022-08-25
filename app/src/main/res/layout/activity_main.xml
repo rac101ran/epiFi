@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/tvHEARDER1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="30sp"
+            android:layout_marginRight="20sp"
+            android:text="S."
+            android:textColor="#C72C41"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_header_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20sp"
+            android:fontFamily="sans-serif"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHEARDER1" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvPanNumber"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_header_2"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="25sp"
+            android:layout_marginRight="25sp"
+            android:hint="Pan Number">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="10"
+                android:id="@+id/etPan"
+                 />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layoutInput"
+            app:layout_constraintTop_toBottomOf="@id/tvPanNumber"
+            android:layout_marginTop="30sp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Birth Date"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:orientation="horizontal">
+                <EditText
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:maxLength="2"
+                    android:textSize="24sp"
+                    android:padding="2dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/fieldshape"
+                    android:inputType="number"
+
+                    android:id="@+id/etDate"
+                    />
+                <EditText
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:textSize="24sp"
+                    android:padding="2dp"
+                    android:maxLength="2"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/fieldshape"
+                    android:id="@+id/etMonth"
+                    />
+                <EditText
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:padding="2dp"
+                    android:maxLength="4"
+                    android:background="@drawable/fieldshape"
+                    android:inputType="number"
+                    android:id="@+id/etYear"
+                    />
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25sp"
+            android:id="@+id/tv_desc"
+            android:layout_marginRight="25sp"
+            android:text=""
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/btNext"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutInput"
+            app:layout_constraintVertical_bias="1.0" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="20dp"
+            android:text="NEXT"
+            android:layout_marginRight="20dp"
+            android:id="@+id/btNext"
+            app:layout_constraintBottom_toTopOf="@+id/tvNoPan"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I Don't have a PAN"
+                android:id="@+id/tvNoPan"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textAlignment="center"
+                android:layout_marginLeft="25sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textColor="#0000ff"
+                android:layout_marginRight="25sp"
+                />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
