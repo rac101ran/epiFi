@@ -1,7 +1,9 @@
 package com.example.epifi
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -67,7 +69,9 @@ class MainActivity : AppCompatActivity() {
     private fun initView() {
 
         binding.tvHeader2.text = resources.getString(R.string.title_PAN)
-        binding.tvDesc.text = resources.getString(R.string.info_KYC)
+
+        binding.tvDesc.movementMethod = LinkMovementMethod.getInstance()
+        binding.tvDesc.setLinkTextColor(Color.BLUE)
 
         val state = viewModelFi.state
         binding.etPan.doAfterTextChanged {
