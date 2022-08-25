@@ -17,6 +17,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.concurrent.schedule
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,12 +50,7 @@ class MainActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
 
-                        // short delay for better user experience
-                        GlobalScope.launch {
-                            delay(200)
-                            finish()
-                        }
-
+                         Timer().schedule(500){ finish() }
                     }
                     is ViewModelFi.ValidationEvent.Failure -> {
                         // when it is the failure validation , disable the NEXT button
