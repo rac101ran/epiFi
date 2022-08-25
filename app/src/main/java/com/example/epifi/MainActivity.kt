@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
                         // short delay for better user experience
                         GlobalScope.launch {
-                            delay(400)
+                            delay(200)
                             finish()
                         }
 
